@@ -1,13 +1,16 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-
+        MyArray<Integer> arr = new MyArray<>();
+        for (int i = 0; i < 100; i++) {
+            arr.add(new Random().nextInt(1000));
+        }
+        arr.show();
+        arr.sort(Comparator.comparingInt(o -> o));
+        arr.show();
     }
 }

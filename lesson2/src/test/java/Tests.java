@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Tests {
 
-    protected Duration timeout = Duration.ofSeconds(4);
+    protected Duration timeout = Duration.ofSeconds(2);
 
     @Test
     void timeTestAdd(){
@@ -34,8 +35,8 @@ public class Tests {
         arr.remove(2);
         assertArrayEquals(new Integer[]{1,2,4,5,6,7,8,9}
                 , arr.toArray());
-        assertEquals(-1, arr.find(20));
-        assertEquals(2, arr.find(4));
+        assertEquals(-1, ArrayUtility.linearSearch(arr, 20));
+        assertEquals(2, ArrayUtility.linearSearch(arr, 4));
         arr.add(0, 100);
         assertArrayEquals(new Integer[]{100, 1,2,4,5,6,7,8,9}
                 , arr.toArray());
@@ -73,7 +74,7 @@ public class Tests {
             for (int i = 0; i < n; i++) {
                 array.add(input.nextInt());
             }
-            array.quickSort();
+            array.sort(Comparator.comparingInt(o->o));
         });
         assertArrayEquals(list.toArray(), array.toArray());
 
