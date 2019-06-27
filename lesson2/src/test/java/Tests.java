@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Tests {
 
-    protected Duration timeout = Duration.ofSeconds(2);
+    protected Duration timeout = Duration.ofSeconds(1);
 
     @Test
     void timeTestAdd(){
@@ -68,13 +68,18 @@ public class Tests {
         }
         //System.out.println(list.subList(0, 10));
         MyArray<Integer> array = new MyArray<>();
-        assertTimeoutPreemptively(timeout, ()->{
-            Scanner input = new Scanner(in);
+        Scanner input = null;
+        try {
+            input = new Scanner(in);
             int n = input.nextInt();
             for (int i = 0; i < n; i++) {
                 array.add(input.nextInt());
             }
-            array.sort(Comparator.comparingInt(o->o));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertTimeoutPreemptively(timeout, ()->{
+            array.sort();
         });
         assertArrayEquals(list.toArray(), array.toArray());
 

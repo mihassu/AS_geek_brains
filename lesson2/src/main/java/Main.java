@@ -10,7 +10,8 @@ public class Main {
             arr.add(new Random().nextInt(1000));
         }
         arr.show();
-        arr.sort(Comparator.comparingInt(o -> o));
+        //Arrays.sort();
+        //arr.sort(Comparator.comparingInt(o -> o));
         arr.show();
     }
 }

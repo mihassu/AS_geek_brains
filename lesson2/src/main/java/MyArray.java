@@ -4,13 +4,13 @@ import java.util.Comparator;
 
 public class MyArray<T> {
 
-    private Object[] data;
+    private Integer[] data;
     private int size, capacity, q;
 
     public MyArray() {
         size = 0;
         capacity = 1000;
-        data = new Object[capacity];
+        data = new Integer[capacity];
     }
 
     void getQ(){
@@ -25,7 +25,7 @@ public class MyArray<T> {
     }
 
     //вставка в конец массива
-    void add(T element){
+    void add(Integer element){
         if(size < capacity){
             data[size] = element;
             size++;
@@ -37,7 +37,7 @@ public class MyArray<T> {
         }
     }
 
-    void set(int index, T value){
+    void set(int index, Integer value){
         data[index] = value;
     }
 
@@ -59,7 +59,7 @@ public class MyArray<T> {
     //подумайте как лучше
     private void reallocate(){
         capacity *= 2;
-        Object[] tmp = new Object[capacity];
+        Integer[] tmp = new Integer[capacity];
         if (size >= 0) System.arraycopy(data, 0, tmp, 0, size);
         data = tmp;
     }
@@ -82,20 +82,27 @@ public class MyArray<T> {
         return (T[]) tmp;
     }
 
-    void sort(Comparator<T> c){
-        int q = 0;
-        for (int i = 0; i < size; i++) {
-            int swaps = 0;
-            for (int j = 0; j < size-i-1; j++) {
-                if(c.compare((T)data[j], (T)data[j+1]) > 0){
-                    swaps++;
-                    Object tmp = data[j+1];
-                    data[j+1] = data[j];
+    void sort(){
+        int left = 0, right = size;
+        qs(data, left, right-1);
+    }
+
+    private void qs(Integer[] data, int left, int right) {
+        if(left < right){
+            int i = left, j = right;
+            int p = data[(i+j) / 2];
+            do{
+                while (data[i] < p) i++;
+                while (data[j] > p) j--;
+                if(i <= j){
+                    Integer tmp = data[i];
+                    data[i] = data[j];
                     data[j] = tmp;
+                    i++; j--;
                 }
-                q++;
-            }
-            if(swaps == 0) break;
+            }while (i <= j);
+            qs(data, left, j);
+            qs(data, i, right);
         }
     }
 
