@@ -53,7 +53,7 @@ public class Tests {
         iter.next();
         iter.remove();
         iter.remove();
-        assertEquals("[5, 4, 1]", list.toString());
+        assertEquals("[5, 2, 1]", list.toString());
     }
 
     @Test

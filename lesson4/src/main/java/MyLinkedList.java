@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class MyLinkedList<T> implements Iterable<T>{
+public class MyLinkedList<T> implements Iterable<T> {
 
     private Node<T> head, tail, iteratorNode;
     private Iterator<T> iterator;

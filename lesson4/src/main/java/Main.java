@@ -6,11 +6,13 @@ public class Main {
         for (int i = 0; i < 10; i++) {
             list.add(i+1);
         }
-        Iterator<Integer> iterator = list.iterator();
-        while (iterator.hasNext())
-            System.out.println(iterator.next());
-        for(Integer i : list) {
-            System.out.println(i);
+        for(Iterator<Integer> iterator = list.iterator(); iterator.hasNext();){
+            int value = iterator.next();
+            System.out.println(value);
+        }
+
+        for (Integer i : list){
+
         }
 
     }
