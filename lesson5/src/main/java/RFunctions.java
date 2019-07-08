@@ -33,13 +33,15 @@ public class RFunctions {
     }
 
     //функция должна разбить список пополам (2 2 для 4 или 3 2 для 5)
-    Pair<ArrayList<Integer>, ArrayList<Integer>> split(ArrayList<Integer> list){
+    Pair<ArrayList<Integer>, ArrayList<Integer>>
+    split(ArrayList<Integer> list){
         //TODO
         return null;
     }
 
     //функция должна вернуть отсортированный список, сливаемый из двух отсортированных
-    ArrayList<Integer> merge(ArrayList<Integer> left, ArrayList<Integer> right){
+    ArrayList<Integer>
+    merge(ArrayList<Integer> left, ArrayList<Integer> right){
         //TODO
         return null;
     }
