@@ -142,22 +142,17 @@ public class RFunctions {
     //функция должна вернуть максимальную массу из предметов в дата, но не превышающую
     //лимит
     long knackPack(int[] data, long limit) {
-        ArrayList<Integer> sortData = new ArrayList<>();
-        for (int o: data) {
-            sortData.add(o);
-        }
 
-        return knackPack(mergeSort(sortData), limit, limit, 0);
+        return knackPack(data, limit, 0, 0);
     }
 
-    private long knackPack(ArrayList<Integer> sortData, long limit, long start, int index) {
+    private long knackPack(int[] data, long limit, long sum, int index) {
 
+        if (limit < 0) {return Long.MIN_VALUE;}
+        if (index == data.length) {return sum;}
 
-        if (index >= sortData.size() - 1) {return 0;}
-        if (sortData.get(index) >= limit) {return sortData.get(index - 1);}
-
-        return knackPack(sortData, limit, start, index + 1);
-
+        return Math.max(knackPack(data, limit - data[index], sum + data[index], index + 1),
+                knackPack(data, limit, sum, index + 1));
 
     }
 

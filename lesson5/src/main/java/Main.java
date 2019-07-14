@@ -65,10 +65,28 @@ public class Main {
         System.out.println(functions.mergeSort(list));
 
         //максимальное число не превышающее лимит
-        int[] data = {5, 2, 1, 7, 4, 8, 3};
-        System.out.println("max: " + functions.knackPack(data, 3));
+        int[] data = {15, 30, 5, 40, 10, 15};
+        System.out.println("max: " + functions.knackPack(data, 69));
 
+        //перестановка
+        rec(new int[]{0, 0, 0}, 0);
+    }
 
+    static boolean[] used = new boolean[1000];
+    //урок 5 - 1:16
+    static void rec(int[] data, int index) {
+        if (index == data.length) {
+            System.out.println(Arrays.toString(data));
+            return;
+        }
+
+        for (int i = 0; i < data.length; i++) {
+            if (used[i + 1]) {continue;}
+            data[index] = i + 1;
+            used[i + 1] = true;
+            rec(data, index + 1);
+            used[i + 1] = false;
+        }
     }
 
 
