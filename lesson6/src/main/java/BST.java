@@ -20,9 +20,9 @@ public class BST<T extends Comparable<T>> implements Tree<T>{
     }
 
     private void add(Node<T> node, T element){
-        if(element.compareTo(node.value) < 0){
+        if(element.compareTo(node.value) < 0){ //если поставить >= то будут добавляться одинаковые элементы
             if(node.left == null){
-                node.left  = new Node<>(element);
+                node.left = new Node<>(element);
             }
             else{
                 add(node.left, element);
@@ -45,8 +45,27 @@ public class BST<T extends Comparable<T>> implements Tree<T>{
 
     @Override
     public boolean find(T element) {
-        return false;
+
+        if (root.value == element) {
+            return true;
+        } else if (element.compareTo(root.value) < 0){
+            return find(root.left, element);
+        } else {
+            return find(root.right, element);
+        }
     }
+
+    private boolean find(Node<T> node, T element) {
+        if (node == null){return false;}
+        if (node.value == element) {return true;}
+
+        if (find(node.left, element)) {
+            return true;
+        } else {
+            return find(node.right, element);
+        }
+    }
+
 
     static StringBuilder str;
 
@@ -86,8 +105,22 @@ public class BST<T extends Comparable<T>> implements Tree<T>{
 
     @Override
     public String postOrder() {
-        return null;
+        str = new StringBuilder();
+        str.append('[');
+        postOrder(root);
+        str.delete(str.length()-2, str.length());
+        str.append(']');
+        return str.toString();
     }
+
+    private void postOrder(Node<T> node) {
+        if (node == null){return;}
+
+        postOrder(node.left);
+        postOrder(node.right);
+        str.append(node.value).append(',').append(' ');
+    }
+
 
     @Override
     public int size() {
