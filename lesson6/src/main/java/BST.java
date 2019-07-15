@@ -40,8 +40,104 @@ public class BST<T extends Comparable<T>> implements Tree<T>{
 
     @Override
     public void remove(T element) {
+        Node<T> current = root;
+        Node<T> parent = root;
+        boolean isLeftChild = true;
+
+        //поиск элемента
+        while (current.value != element) { //когда элемент найден в parent остается ссылка на родителя
+            parent = current;
+            if (element.compareTo(current.value) < 0) {
+                isLeftChild = true;
+                current = current.left;
+            } else {
+                isLeftChild = false;  //если найдем здесь, то это будет правый потомок
+                current = current.right;
+            }
+            if (current == null) { //элемент не найден
+                return;
+            }
+        }
+
+        if (current.left == null && current.right == null){    //проверка что у элемента нет потомков
+            if (current == root) { //если надо удалить корень
+                root = null;
+            } else if (isLeftChild) {
+                parent.left = null;
+            } else {
+                parent.right = null;
+            }
+
+        } else if (current.left == null & current.right != null) { //проверка что нет левого потомка
+            if (current == root) { //если надо удалить корень
+                root = current.right;
+            } else if (isLeftChild) {
+                parent.left = current.right;
+            }else {
+                parent.right = current.right;
+            }
+
+        } else if (current.right == null & current.left != null) { //проверка что нет левого потомка
+            if (current == root) { //если надо удалить корень
+                root = current.left;
+            } else if (isLeftChild) {
+                parent.left = current.left;
+            }else {
+                parent.right = current.left;
+            }
+
+        } else {
+            Node<T> successor = getSuccessor(current);
+            if (current == root) {
+                root = successor;
+            } else if (isLeftChild) {
+                parent.left = successor;
+            } else {
+                parent.right = successor;
+            }
+            successor.left = current.left;
+        }
+
 
     }
+
+    private Node<T> getSuccessor(Node<T> node) {
+        Node successorParent = node;
+        Node successor = node;
+        Node current = node.right; //преемником может оказаться правый потомок - в том случае если у него не левых потомков
+
+        while (current != null) {
+            successorParent = successor;
+            successor = current;
+            current = current.left;
+        }
+
+        if (successor != node.right) {
+            successorParent.left = successor.right;
+            successor.right = node.right;
+        }
+
+        return successor;
+    }
+
+    public Node<T> findElement(T element) {
+        return findElement(element, root);
+    }
+
+    private Node<T> findElement(T element, Node<T> node) {
+        if (node == null) {return null;}
+        if (node.value == element) {return node;}
+
+        if (element.compareTo(node.value) < 0) {
+            return findElement(element, node.left);
+        } else if (element.compareTo(node.value) > 0) {
+            return findElement(element, node.right);
+        } else {
+            return null;
+        }
+
+    }
+
 
     @Override
     public boolean find(T element) {
